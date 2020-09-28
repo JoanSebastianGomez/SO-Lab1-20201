@@ -12,13 +12,16 @@ int main(int argc, char *argv[])
     char *linea = argv[1];
     if (argc == 2)
     {
-        char buffer[500];
-        while ( fgets(buffer, 500, stdin) ){
-            if (strstr(buffer, linea) != NULL)
+        char *line = NULL;
+        size_t len = 0;
+        ssize_t read;
+        while ((read = getline(&line, &len, stdin)) != -1)
             {
-                printf("%s", buffer);
+                if (strstr(line, linea) != NULL)
+                {
+                    printf("%s", line);
+                }
             }
-        }
     }
     else
     {
